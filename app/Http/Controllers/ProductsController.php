@@ -48,7 +48,20 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'family_id' => 'required|exists:families,id',
+        ]);
+
+        // Create a new product
+        Products::create($request->all());
+
+        // Redirect to the products index with a success message
+        return redirect()->route('products.index')->with('success', 'Producto creado con éxito.');
     }
 
     /**
@@ -72,7 +85,21 @@ class ProductsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'family_id' => 'required|exists:families,id',
+        ]);
+
+        // Find the product by ID and update it
+        $product = Products::findOrFail($id);
+        $product->update($request->all());
+
+        // Redirect to the products index with a success message
+        return redirect()->route('products.index')->with('success', 'Producto actualizado con éxito.');
     }
 
     /**
@@ -80,6 +107,11 @@ class ProductsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Find the product by ID and delete it
+        $product = Products::findOrFail($id);
+        $product->delete();
+
+        // Redirect to the products index with a success message
+        return redirect()->route('products.index')->with('success', 'Producto eliminado con éxito.');
     }
 }

@@ -19,6 +19,17 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('family_id', 'Familia') !!}
+    {!! Form::select('family_id', $families->pluck('name', 'id'), $product->family_id ?? null, [
+        'class' => 'form-control',
+        'placeholder' => 'Seleccione una familia',
+        'required',
+        'id' => 'family_id', // ← IMPORTANTE
+    ]) !!}
+</div>
+
+
+<div class="form-group">
     {!! Form::label('category_id', 'Categoría') !!}
     {!! Form::select('category_id', $categories->pluck('name', 'id'), $product->category_id ?? null, [
         'class' => 'form-control',
@@ -28,15 +39,7 @@
     ]) !!}
 </div>
 
-<div class="form-group">
-    {!! Form::label('family_id', 'Familia') !!}
-    {!! Form::select('family_id', $families->pluck('name', 'id'), $product->family_id ?? null, [
-        'class' => 'form-control',
-        'placeholder' => 'Seleccione una familia',
-        'required',
-        'id' => 'family_id', // ← IMPORTANTE
-    ]) !!}
-</div>
+
 
 <div class="form-group">
     {!! Form::label('price', 'Precio') !!}
