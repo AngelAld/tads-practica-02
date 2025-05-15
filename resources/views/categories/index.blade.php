@@ -26,9 +26,7 @@
                             <td>{{ $category['family'] }}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCategoryModal"
-                                    data-id="{{ $category['id'] }}" data-name="{{ $category['name'] }}"
-                                    data-description="{{ $category['description'] }}"
-                                    data-family_id="{{ $category['family_id'] }}" id="btnEditCategory">
+                                    onclick="handleEdit({{ $category['id'] }})">
                                     <i class="fas fa-edit"></i> Editar
                                 </button>
 
@@ -158,7 +156,22 @@
             $('#formMethod').val('POST');
         });
 
-        $('')
+        function handleEdit(id) {
+            console.log(id);
+            console.log("Editando categoría con ID: " + id);
+            const url = "{{ route('categories.update', ':id') }}".replace(':id', id);
+            const category = @json($categories->keyBy('id'))[id];
+            console.log(category);
+            $('#editCategoryModalLabel').text('Editar Categoría');
+            $('#editCategoryForm').attr('action', url);
+            $('#formMethod').val('PUT');
+            $('#name').val(category.name);
+            $('#description').val(category.description);
+            $('#family_id').val(category.family_id);
+            $('#editCategoryModal').modal('show');
+
+
+        }
     </script>
 
 
