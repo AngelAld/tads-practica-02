@@ -31,13 +31,31 @@
 
 <div class="form-group">
     {!! Form::label('category_id', 'Categoría') !!}
-    {!! Form::select('category_id', $categories->pluck('name', 'id'), $product->category_id ?? null, [
+    {!! Form::select('category_id', [], null, [
         'class' => 'form-control',
         'placeholder' => 'Seleccione una categoría',
         'required',
         'id' => 'category_id', // ← IMPORTANTE
     ]) !!}
 </div>
+
+<script>
+    document.getElementById('family_id').addEventListener('change', function() {
+        const familyId = this.value;
+        const categories = @json($categories);
+        const filteredCategories = categories.filter(category => category.family_id == familyId);
+
+        const categorySelect = document.getElementById('category_id');
+        categorySelect.innerHTML = '<option value="" disabled selected>Seleccione una categoría</option>';
+
+        filteredCategories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            categorySelect.appendChild(option);
+        });
+    });
+</script>
 
 
 
