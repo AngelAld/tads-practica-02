@@ -39,6 +39,22 @@
     ]) !!}
 </div>
 
+
+
+
+
+<div class="form-group">
+    {!! Form::label('price', 'Precio') !!}
+    {!! Form::number('price', $product->price ?? null, [
+        'class' => 'form-control',
+        'placeholder' => 'Ingrese el precio del producto',
+        'required',
+        'step' => '0.01',
+        'id' => 'price', // ← IMPORTANTE
+    ]) !!}
+</div>
+
+
 <script>
     document.getElementById('family_id').addEventListener('change', function() {
         const familyId = this.value;
@@ -56,16 +72,3 @@
         });
     });
 </script>
-
-
-
-<div class="form-group">
-    {!! Form::label('price', 'Precio') !!}
-    {!! Form::number('price', $product->price ?? null, [
-        'class' => 'form-control',
-        'placeholder' => 'Ingrese el precio del producto',
-        'required',
-        'step' => '0.01',
-        'id' => 'price', // ← IMPORTANTE
-    ]) !!}
-</div>
